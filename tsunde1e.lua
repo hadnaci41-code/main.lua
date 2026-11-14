@@ -1,9 +1,9 @@
--- Tsunde1eee GUI (Text Color: Black)
+-- Tsunde1eee GUI (Square Style & "Hmph" Icon)
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local LocalPlayer = Players.LocalPlayer
 
--- สร้าง ScreenGui (พยายามใส่ใน CoreGui ก่อน ถ้าไม่ได้จะลง PlayerGui)
+-- สร้าง ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "Tsunde1eeeGUI"
 ScreenGui.ResetOnSpawn = false
@@ -15,27 +15,28 @@ if not success then
     ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 end
 
--- 1. ปุ่มไอคอนเปิด-ปิด GUI (ลากย้ายได้)
-local ToggleIcon = Instance.new("ImageButton")
+-- 1. ปุ่มไอคอนเปิด-ปิด GUI (ทรงสี่เหลี่ยมเหลี่ยมๆ, มีคำว่า "Hmph" ตรงกลาง)
+local ToggleIcon = Instance.new("TextButton")
 ToggleIcon.Name = "ToggleIcon"
-ToggleIcon.Size = UDim2.new(0, 50, 0, 50)
+ToggleIcon.Size = UDim2.new(0, 55, 0, 55)
 ToggleIcon.Position = UDim2.new(0.05, 0, 0.25, 0)
 ToggleIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ToggleIcon.Image = "rbxassetid://132517293193890"
+ToggleIcon.BorderSizePixel = 0 -- เอาขอบเหลี่ยมปกติของโรบล็อกออก ใช้ UIStroke แทน
+ToggleIcon.Text = "Hmph"
+ToggleIcon.TextColor3 = Color3.fromRGB(0, 0, 0)
+ToggleIcon.Font = Enum.Font.GothamBold
+ToggleIcon.TextSize = 14
 ToggleIcon.Active = true
 ToggleIcon.Draggable = true
 ToggleIcon.Parent = ScreenGui
 
-local IconCorner = Instance.new("UICorner")
-IconCorner.CornerRadius = UDim.new(0, 12)
-IconCorner.Parent = ToggleIcon
-
+-- กรอบสี่เหลี่ยมบางสี Cyan (ไม่ใส่ UICorner เพื่อให้เป็นเหลี่ยมคมๆ)
 local IconStroke = Instance.new("UIStroke")
-IconStroke.Color = Color3.fromRGB(0, 255, 255) -- กรอบบางสี Cyan
+IconStroke.Color = Color3.fromRGB(0, 255, 255)
 IconStroke.Thickness = 1.5
 IconStroke.Parent = ToggleIcon
 
--- 2. หน้าต่างหลัก GUI (พื้นหลังขาว กรอบบางสี Cyan)
+-- 2. หน้าต่างหลัก GUI (ทรงเหลี่ยมทั้งหมด ไม่มีมุมโค้ง)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
 MainFrame.Size = UDim2.new(0, 240, 0, 150)
@@ -47,26 +48,18 @@ MainFrame.Draggable = true
 MainFrame.Visible = true
 MainFrame.Parent = ScreenGui
 
-local MainCorner = Instance.new("UICorner")
-MainCorner.CornerRadius = UDim.new(0, 10)
-MainCorner.Parent = MainFrame
-
 local MainStroke = Instance.new("UIStroke")
-MainStroke.Color = Color3.fromRGB(0, 255, 255) -- กรอบบางสี Cyan
+MainStroke.Color = Color3.fromRGB(0, 255, 255) -- กรอบเหลี่ยมสี Cyan
 MainStroke.Thickness = 1.5
 MainStroke.Parent = MainFrame
 
--- 3. ช่องหัวข้อ "Tsunde1eee gui"
+-- 3. ช่องหัวข้อ "Tsunde1eee gui" (ทรงเหลี่ยม)
 local HeaderFrame = Instance.new("Frame")
 HeaderFrame.Name = "HeaderFrame"
 HeaderFrame.Size = UDim2.new(1, 0, 0, 38)
 HeaderFrame.BackgroundColor3 = Color3.fromRGB(245, 252, 255)
 HeaderFrame.BorderSizePixel = 0
 HeaderFrame.Parent = MainFrame
-
-local HeaderCorner = Instance.new("UICorner")
-HeaderCorner.CornerRadius = UDim.new(0, 10)
-HeaderCorner.Parent = HeaderFrame
 
 -- เส้นแบ่งใต้หัวข้อสี Cyan บางๆ
 local Divider = Instance.new("Frame")
@@ -82,7 +75,7 @@ TitleLabel.Name = "TitleLabel"
 TitleLabel.Size = UDim2.new(1, 0, 1, 0)
 TitleLabel.BackgroundTransparency = 1
 TitleLabel.Text = "Tsunde1eee gui"
-TitleLabel.TextColor3 = Color3.fromRGB(0, 0, 0) -- ตัวหนังสือสีดำสนิท
+TitleLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 TitleLabel.Font = Enum.Font.GothamBold
 TitleLabel.TextSize = 16
 TitleLabel.Parent = HeaderFrame
@@ -95,33 +88,30 @@ ContentFrame.Position = UDim2.new(0, 0, 0, 40)
 ContentFrame.BackgroundTransparency = 1
 ContentFrame.Parent = MainFrame
 
--- ปุ่ม "Troll lag"
+-- ปุ่ม "Troll lag" (ปรับเป็นทรงเหลี่ยม ขอบ Cyan ตัวหนังสือดำ)
 local TrollLagBtn = Instance.new("TextButton")
 TrollLagBtn.Name = "TrollLagButton"
 TrollLagBtn.Size = UDim2.new(0.85, 0, 0, 45)
 TrollLagBtn.Position = UDim2.new(0.075, 0, 0.25, 0)
 TrollLagBtn.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
+TrollLagBtn.BorderSizePixel = 0
 TrollLagBtn.Text = "Troll lag : OFF"
-TrollLagBtn.TextColor3 = Color3.fromRGB(0, 0, 0) -- ตัวหนังสือสีดำสนิท
+TrollLagBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
 TrollLagBtn.Font = Enum.Font.GothamSemibold
 TrollLagBtn.TextSize = 15
 TrollLagBtn.Parent = ContentFrame
-
-local BtnCorner = Instance.new("UICorner")
-BtnCorner.CornerRadius = UDim.new(0, 8)
-BtnCorner.Parent = TrollLagBtn
 
 local BtnStroke = Instance.new("UIStroke")
 BtnStroke.Color = Color3.fromRGB(0, 255, 255)
 BtnStroke.Thickness = 1.2
 BtnStroke.Parent = TrollLagBtn
 
--- ระบบทำงานของปุ่มเปิด-ปิด GUI
+-- ระบบทำงานเปิด-ปิด GUI
 ToggleIcon.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
--- ระบบทำงานของฟังก์ชัน Troll lag (ล็อกตัวละครแต่หมุนจอได้)
+-- ระบบ Troll lag (ล็อกตัวละครแต่หมุนจอได้)
 local isTrollLag = false
 
 local function setCharacterFreeze(state)
@@ -140,16 +130,16 @@ TrollLagBtn.MouseButton1Click:Connect(function()
     
     if isTrollLag then
         TrollLagBtn.Text = "Troll lag : ON"
-        TrollLagBtn.TextColor3 = Color3.fromRGB(0, 0, 0) -- ตัวหนังสือยังคงสีดำตอนเปิด
+        TrollLagBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
         TrollLagBtn.BackgroundColor3 = Color3.fromRGB(210, 255, 255)
     else
         TrollLagBtn.Text = "Troll lag : OFF"
-        TrollLagBtn.TextColor3 = Color3.fromRGB(0, 0, 0) -- ตัวหนังสือสีดำตอนปิด
+        TrollLagBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
         TrollLagBtn.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
     end
 end)
 
--- กันบั๊กเวลาตัวละครตายแล้วเกิดใหม่ ให้รีเซ็ตสถานะปุ่มอัตโนมัติ
+-- รีเซ็ตสถานะเวลาตัวละครเกิดใหม่
 LocalPlayer.CharacterAdded:Connect(function()
     isTrollLag = false
     TrollLagBtn.Text = "Troll lag : OFF"
